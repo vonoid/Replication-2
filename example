@@ -1,13 +1,15 @@
 #!/bin/bash
 
-PORT=80
-FILE="/var/www/html/index.html"
+URL="http://127.0.0.1"
+FILE="/var/www/html/index.nginx-debian.html"
 
-nc -z 127.0.0.1 $PORT
+# Проверка HTTP-ответа от nginx
+curl -s --head $URL | grep "200 OK" > /dev/null
 if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# Проверка наличия файла
 if [ ! -f "$FILE" ]; then
   exit 1
 fi
